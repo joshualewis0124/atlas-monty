@@ -53,3 +53,49 @@ void f_push(stack_t **stack, unsigned int line_number)
 		(*stack)->prev = aux;
 	*stack = aux;
 }
+
+/**
+ * f_pint - Prints the first node of the stack
+ * @stack: Stack of nodes
+ * @line_number: Line where the instruction is located
+ */
+
+void f_pint(stack_t **stack, unsigned int line_number)
+{
+	if (!stack || !*stack)
+	{
+		dprintf(2, "L%i: can't pint, stack empty\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+
+	printf("%d\n", (*stack)->n);
+}
+
+/**
+ * f_pop- Removes the top element of the stack
+ * @stack: Stack of nodes
+ * @line_number: Line where the instruction is located
+ */
+
+void f_pop(stack_t **stack, unsigned int line_number)
+{
+	stack_t *aux = *stack;
+
+	if (!*stack || !stack)
+	{
+		dprintf(2, "L%i: can't pop an empty stack\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+
+	if ((*stack)->next != NULL)
+	{
+		*stack = aux->next;
+		(*stack)->prev = NULL;
+		free(aux);
+	}
+	else
+	{
+		free(*stack);
+		*stack = NULL;
+	}
+}

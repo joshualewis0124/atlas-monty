@@ -33,3 +33,35 @@ void get_opcode(char *buff, stack_t **stack, unsigned int line_number)
 	dprintf(2, "L%i: unknown instruction %s\n", line_number, buff);
 	exit(EXIT_FAILURE);
 }
+
+/**
+**_divstring - Auxiliar function to divide a string
+*@string: String that is going to be divided
+*@separator: Separator that indicates the division point
+*Return: Divided array
+*/
+
+char **_divstring(char *string, char *separator)
+{
+	int i = 0, j = 0;
+	char *t, **array;
+
+	array = (char **)calloc(100, sizeof(char *));
+
+	if (!array)
+	{
+		free(array);
+		dprintf(2, "Error: calloc failed\n");
+		exit(EXIT_FAILURE);
+	}
+
+	while (string[i])
+		i++;
+	while ((t = strtok(string, separator)) != NULL)
+	{
+		array[j] = t;
+		string = NULL;
+		j++;
+	}
+	return (array);
+}
